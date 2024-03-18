@@ -10,7 +10,7 @@
 */
 AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 {
-	for (int i = 0; i < kStations; ++i) {
+	for (int i = 0; i < STATIONS; ++i) {
 		freq[i].AMFreq = 530;
 		freq[i].FMFreq = 87.9;
 	}
@@ -27,7 +27,7 @@ AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 	}
 	else
 	{	//When radio is turned off
-		volume = kMinVol;
+		volume = MIN;
 		current_station = 0;
 		strcpy(band, "");
 	}
@@ -44,7 +44,7 @@ AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 */
 AmFmRadio::AmFmRadio(bool isOn, Freqs presets[]) : displayOutput(false)
 {
-	for (int i = 0; i < kStations; ++i) {
+	for (int i = 0; i < STATIONS; ++i) {
 		freq[i] = presets[i];
 	}
 }
@@ -81,7 +81,7 @@ void AmFmRadio::PowerToggle(void)
 		on = true;
 		if (volume <= 0)
 		{
-			volume = kMinVol;
+			volume = MIN;
 		}
 
 		if (strcmp(band, "AM") == 0)
@@ -105,7 +105,7 @@ void AmFmRadio::PowerToggle(void)
 		}
 		// Radio is being turned off
 		int prevVolume = volume;
-		volume = kMinVol;
+		volume = MIN;
 		volume = prevVolume;
 		on = false;
 		current_station = 0;
@@ -149,7 +149,7 @@ void AmFmRadio::ToggleBand(void)
 */
 int AmFmRadio::SelectPresetFreq(int freq_num)
 {
-	if ((freq_num >= kMinFreqs) && (freq_num <= kMaxFreqs))
+	if ((freq_num >= MIN) && (freq_num <= MAX))
 	{
 		if (strcmp("AM", band) == 0)
 		{
@@ -159,7 +159,7 @@ int AmFmRadio::SelectPresetFreq(int freq_num)
 		{
 			current_station = freq[freq_num].FMFreq;
 		}
-		return kSuccess;
+		return SUCCESS;
 	}
 	return kFailure;
 }
@@ -206,13 +206,13 @@ void AmFmRadio::ShowCurrentSettings(void)
 	}
 
 	printf("AM Freq Settings:");
-	for (int i = 0; i < kStations; ++i)
+	for (int i = 0; i < STATIONS; ++i)
 	{
 		printf("%2d) %5d ", i + 1, freq[i].AMFreq);
 	}
 
 	printf("\nFM Freq Settings:");
-	for (int j = 0; j < kStations; ++j)
+	for (int j = 0; j < STATIONS; ++j)
 	{
 		printf("%2d) %5.1f ", j + 1, freq[j].FMFreq);
 	}
@@ -402,7 +402,7 @@ bool AmFmRadio::GetDisplayOutput(void)
 */
 int AmFmRadio::SetPresetFreq(int freq_num)
 {
-	if ((freq_num >= kMinFreqs) && (freq_num <= kMaxFreqs))
+	if ((freq_num >= MIN) && (freq_num <= MAX))
 	{
 		if (strcmp("AM", band) == 0)
 		{
@@ -412,7 +412,7 @@ int AmFmRadio::SetPresetFreq(int freq_num)
 		{
 			freq[freq_num].FMFreq = current_station;
 		}
-		return kSuccess;
+		return SUCCESS;
 	}
 	return kFailure;
 }
@@ -429,24 +429,24 @@ int AmFmRadio::SetPresetFreq(int freq_num)
 */
 int AmFmRadio::SetVolume(void)
 {
-	char buf[kSize] = "";
+	char buf[BUF_SIZE] = "";
 
 	printf("\nEnter the volume level (0 - 100) : ");
 	fgets(buf, sizeof buf, stdin);
 	volume = atoi(buf);
 
-	if (volume < kMinVol)
+	if (volume < MIN)
 	{
-		volume = kMinVol;
-		return kMinVol;
+		volume = MIN;
+		return MIN;
 	}
 
-	if (volume > kMaxVol)
+	if (volume > MAX_VOLUME)
 	{
-		volume = kMaxVol;
-		return kSetToMax;
+		volume = MAX_VOLUME;
+		return VOLUME_SET;
 	}
-	return kSuccess;
+	return SUCCESS;
 }
 
 
@@ -461,15 +461,15 @@ int AmFmRadio::SetVolume(int secondVolume)
 {
 	volume = secondVolume;
 
-	if (volume < kMinVol)
+	if (volume < MIN)
 	{
-		volume = kMinVol;
+		volume = MIN;
 	}
-	else if (volume > kMaxVol)
+	else if (volume > MAX_VOLUME)
 	{
-		volume = kMaxVol;
+		volume = MAX_VOLUME;
 	}
-	return kSuccess;
+	return SUCCESS;
 }
 
 
