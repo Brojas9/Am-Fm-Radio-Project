@@ -68,7 +68,7 @@ public:
 	void ShowCurrentSettings(void);
 	void ScanUp(void);
 	void ScanDown(void);
-	void PrintMenu(void);
+	
 
 
 	AmFmRadio(bool isOn = false);										//Constructor
