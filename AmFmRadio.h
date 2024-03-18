@@ -62,13 +62,13 @@ private:
 public:
 	/* -------------- ATTRIBUTES ------------ */
 	/* - MEMBER FUNCTIONS/METHOD PROTOTYPES - */
-	void PowerToggle();
-	void ToggleBand();
+	void PowerToggle(void);
+	void ToggleBand(void);
 	int SelectPresetFreq(int freq_num);
-	void ShowCurrentSettings();
-	void ScanUp();
-	void ScanDown();
-	void PrintMenu();
+	void ShowCurrentSettings(void);
+	void ScanUp(void);
+	void ScanDown(void);
+	void PrintMenu(void);
 
 
 	AmFmRadio(bool isOn = false);										//Constructor
@@ -88,7 +88,7 @@ public:
 
 	/* ---------- MUTATOR PROTOTYPES --------- */
 	int SetPresetFreq(int freq_num);
-	int SetVolume();
+	int SetVolume(void);
 	int SetVolume(int secondVolume);
 	void SetCurrentStation(double station);
 	void SetDisplayOutput(bool display);
