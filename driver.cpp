@@ -13,7 +13,7 @@ int main(void)
     bool on = true;
     bool off = false;
 
-    AmFmRadio radioAmFm(on); // Instantiate with default settings
+    AmFmRadio radioAmFm(true); // Instantiate with default settings
     //radioAmFm;  
 
 	enum menuItems
@@ -28,7 +28,7 @@ int main(void)
 	int			volStore = 0;
 	int			freqStore = 0;
 	int			freq_num = 0;
-	char		buf[kSize] = { 0 };
+	char		buf[BUF_SIZE] = { 0 };
 	//bool		on = false;
 
 	do
@@ -55,11 +55,11 @@ int main(void)
 			break;
 		case kMenuSetVolume:
 			volStore = radioAmFm.SetVolume();
-			if (volStore == kMinVol)
+			if (volStore == MIN)
 			{
 				printf("\nVolume was set to 0.");
 			}
-			else if (volStore == kSetToMax)
+			else if (volStore == VOLUME_SET)
 			{
 				printf("\nVolume was set to 100.");
 			}
@@ -83,7 +83,7 @@ int main(void)
 			{
 				printf("\nWhich frequency do you want to set?");
 				fgets(buf, sizeof buf, stdin);
-				freq_num = atoi(buf) kNull;
+				freq_num = atoi(buf) -1;
 				freqStore = radioAmFm.SetPresetFreq(freq_num);
 				if (freqStore == 0)
 				{
@@ -100,8 +100,8 @@ int main(void)
 			if (on)
 			{
 				printf("\nEnter the number of the preset frequency: ");
-				fgets(buf, kSize, stdin);
-				freq_num = atoi(buf) kNull;
+				fgets(buf, BUF_SIZE, stdin);
+				freq_num = atoi(buf) -1;
 				freqStore = radioAmFm.SelectPresetFreq(freq_num);
 				if (freqStore == 0)
 				{
@@ -141,7 +141,7 @@ int main(void)
 		case kMenuQuit:
 			printf("\nGoodbye!\n");
 			radioAmFm.~AmFmRadio();
-			exit(kSuccess);
+			exit(SUCCESS);
 		default:
 			printf("You have entered an invalid selection. Please make \n"
 				"another selection.\n");
