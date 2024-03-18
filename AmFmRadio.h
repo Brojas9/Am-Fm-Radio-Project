@@ -7,16 +7,14 @@
 
 
 //Constants
-#define kStations 5
-#define kBands 3
-#define kMaxFreqs 4
-#define kMinFreqs 0
-#define kSuccess 1
-#define kMaxVol 100
-#define kMinVol 0
-#define kSize 20
-#define kNull -1
-#define kSetToMax 2
+#define STATIONS 5
+#define BANDS 3
+#define MAX 4
+#define MIN 0
+#define SUCCESS 1
+#define MAX_VOLUME 100
+#define BUF_SIZE 20
+#define VOLUME_SET 2
 #define kFailure 0
 
 
@@ -48,10 +46,10 @@ private:
 
 	/* -------------- CONSTANTS ------------- */
 	/* -------------- ATTRIBUTES ------------ */
-	Freqs	freq[kStations];
+	Freqs	freq[STATIONS];
 	Freqs frequencies;
 	double	current_station;
-	char	band[kBands];
+	char	band[BANDS];
 	int		volume;
 	bool	on;
 	bool displayOutput;
