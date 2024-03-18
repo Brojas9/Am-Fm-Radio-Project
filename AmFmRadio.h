@@ -27,8 +27,8 @@
 */
 struct Freqs
 {
-	int AMFreq;
-	float FMFreq;
+	double AMFreq;
+	double FMFreq;
 };
 /* -- This is a CLASS comment --
 	NAME	:	AmFmRadio
