@@ -1,0 +1,12 @@
+﻿  AmFmRadio.cpp
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(15,20): warning C4305: '=': truncation from 'double' to 'float'
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(19,23): warning C4305: '=': truncation from 'double' to 'float'
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(100,25): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(104,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(128,24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(134,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(556,28): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\AmFmRadio.cpp(560,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  driver.cpp
+  Generating Code...
+  Upgrading_CarRadio-A-03.vcxproj -> C:\GitHub\Winter 2024\C++\Assignment # 3\Upgrading-Your-Car-Radi\x64\Debug\Upgrading_CarRadio-A-03.exe
