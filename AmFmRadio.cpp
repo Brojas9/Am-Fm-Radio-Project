@@ -74,7 +74,7 @@ AmFmRadio::~AmFmRadio()
 				frequency when turning on the radio.
 	Returns :   None
 */
-void AmFmRadio::PowerToggle()
+void AmFmRadio::PowerToggle(void)
 {
 	if (!on)
 	{
@@ -121,7 +121,7 @@ void AmFmRadio::PowerToggle()
 	Outputs :   Updates the band (AM or FM).
 	Returns :   None
 */
-void AmFmRadio::ToggleBand()
+void AmFmRadio::ToggleBand(void)
 {
 	if (strcmp(band, "AM") == 0)
 	{
@@ -173,7 +173,7 @@ int AmFmRadio::SelectPresetFreq(int freq_num)
 	Outputs :   Prints the current settings of the radio.
 	Returns :   None
 */
-void AmFmRadio::ShowCurrentSettings()
+void AmFmRadio::ShowCurrentSettings(void)
 {
 	int volCero = 0;
 
@@ -228,7 +228,7 @@ void AmFmRadio::ShowCurrentSettings()
 	Outputs :   Updates the current station frequency.
 	Returns :   None
 */
-void AmFmRadio::ScanUp()
+void AmFmRadio::ScanUp(void)
 {
 	if (strcmp("AM", band) == 0)
 	{
@@ -267,7 +267,7 @@ void AmFmRadio::ScanUp()
 	Outputs :   Updates the current station frequency.
 	Returns :   None
 */
-void AmFmRadio::ScanDown()
+void AmFmRadio::ScanDown(void)
 {
 	if (strcmp("AM", band) == 0)
 	{
@@ -308,7 +308,7 @@ void AmFmRadio::ScanDown()
 	Outputs :   Prints the main menu.
 	Returns :   None
 */
-void AmFmRadio::PrintMenu()
+void AmFmRadio::PrintMenu(void)
 {
 	enum menuItems
 	{
@@ -574,7 +574,7 @@ int AmFmRadio::SetPresetFreq(int freq_num)
 				kSetToMax if the volume is set to the maximum volume,
 				kSuccess if the volume is set successfully within the valid range.
 */
-int AmFmRadio::SetVolume()
+int AmFmRadio::SetVolume(void)
 {
 	char buf[kSize] = "";
 
