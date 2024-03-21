@@ -10,26 +10,26 @@
 */
 AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 {
-	for (int i = 0; i < STATIONS; ++i) {
+	for (int i = 0; i < 5; ++i) 
+	{
 		freq[i].AMFreq = 530;
 		freq[i].FMFreq = 87.9;
 	}
-	// Default frequencies
+	// default frequencies
 	frequencies.AMFreq = 530;
 	frequencies.FMFreq = 87.9;
 
-	if (isOn)
+	if (on)
 	{
-		// Default initialization
+		// default initialization
 		volume = 0;
 		current_station = 530;
-		strcpy(band, "AM");
+		strcpy(band, "am");
 	}
 	else
-	{	//When radio is turned off
-		volume = MIN;
-		current_station = 0;
-		strcpy(band, "");
+	{	//when radio is turned off
+		volume = 0;
+		strcpy(band, " ");
 	}
 }
 
@@ -44,9 +44,26 @@ AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 */
 AmFmRadio::AmFmRadio(bool isOn, Freqs presets[]) : displayOutput(false)
 {
-	for (int i = 0; i < STATIONS; ++i) {
-		freq[i] = presets[i];
+	for (int i = 0; i < 5; ++i)
+	{
+		//Validate and set the AM frequency preset
+		SetCurrentStation(presets[i].AMFreq);
+
+		//Update the frequency with validated value
+		presets[i].AMFreq = GetCurrentStation();
+
+		//Validate and set the FM frequency preset
+		SetCurrentStation(presets[i].FMFreq);
+
+		//Update the frequency with validated value
+		presets[i].FMFreq = GetCurrentStation();		
 	}
+
+	//default frequencies
+	frequencies.AMFreq = 530;
+	frequencies.FMFreq = 87.9;
+
+		
 }
 
 
@@ -81,7 +98,7 @@ void AmFmRadio::PowerToggle(void)
 		on = true;
 		if (volume <= 0)
 		{
-			volume = MIN;
+			volume = 0;
 		}
 
 		if (strcmp(band, "AM") == 0)
@@ -105,10 +122,10 @@ void AmFmRadio::PowerToggle(void)
 		}
 		// Radio is being turned off
 		int prevVolume = volume;
-		volume = MIN;
+		volume = 0;
 		volume = prevVolume;
 		on = false;
-		current_station = 0;
+		//current_station = 0;
 	}
 }
 
@@ -149,7 +166,7 @@ void AmFmRadio::ToggleBand(void)
 */
 int AmFmRadio::SelectPresetFreq(int freq_num)
 {
-	if ((freq_num >= MIN) && (freq_num <= MAX))
+	if ((freq_num >= 0) && (freq_num <= 4))
 	{
 		if (strcmp("AM", band) == 0)
 		{
@@ -159,9 +176,9 @@ int AmFmRadio::SelectPresetFreq(int freq_num)
 		{
 			current_station = freq[freq_num].FMFreq;
 		}
-		return SUCCESS;
+		return 1;
 	}
-	return kFailure;
+	return 0;
 }
 
 
@@ -177,7 +194,7 @@ void AmFmRadio::ShowCurrentSettings(void)
 {
 	int volCero = 0;
 
-	if (on == true)
+	if (on)
 	{
 		printf("\n\nRadio is on. \n");
 	}
@@ -185,9 +202,11 @@ void AmFmRadio::ShowCurrentSettings(void)
 	{
 		printf("\n\nRadio is off. \n");
 	}
+		
+		printf("\nRadio Band: %s\n", band);
+		
 
-	printf("\nRadio Band: %s\n", band);
-	if (on == true)
+	if (on)
 	{
 		printf("Volume: %d\n", volume);
 	}
@@ -206,13 +225,13 @@ void AmFmRadio::ShowCurrentSettings(void)
 	}
 
 	printf("AM Freq Settings:");
-	for (int i = 0; i < STATIONS; ++i)
+	for (int i = 0; i < 5; ++i)
 	{
-		printf("%2d) %5d ", i + 1, freq[i].AMFreq);
+		printf("%2d) %5.f ", i + 1, freq[i].AMFreq);
 	}
 
 	printf("\nFM Freq Settings:");
-	for (int j = 0; j < STATIONS; ++j)
+	for (int j = 0; j < 5; ++j)
 	{
 		printf("%2d) %5.1f ", j + 1, freq[j].FMFreq);
 	}
@@ -345,11 +364,16 @@ double AmFmRadio::GetCurrentStation(void)
 	Purpose :   Retrieve the current band of the radio.
 	Inputs  :   None
 	Outputs :   None
-	Returns :   char* to an array representing the current band.
+	Returns :   char* bandCopy.
 */
 char* AmFmRadio::GetBand(void)
 {
-	return band;
+	char* bandCopy = new char[3];
+
+	memcpy(bandCopy, band,sizeof(band));
+	bandCopy[3];
+
+	return bandCopy;
 }
 
 
@@ -402,19 +426,19 @@ bool AmFmRadio::GetDisplayOutput(void)
 */
 int AmFmRadio::SetPresetFreq(int freq_num)
 {
-	if ((freq_num >= MIN) && (freq_num <= MAX))
+	if ((freq_num >= 0) && (freq_num <= 4))
 	{
 		if (strcmp("AM", band) == 0)
-		{
+		{			
 			freq[freq_num].AMFreq = current_station;
 		}
 		else
 		{
 			freq[freq_num].FMFreq = current_station;
 		}
-		return SUCCESS;
+		return 1;
 	}
-	return kFailure;
+	return 0;
 }
 
 
@@ -429,24 +453,24 @@ int AmFmRadio::SetPresetFreq(int freq_num)
 */
 int AmFmRadio::SetVolume(void)
 {
-	char buf[BUF_SIZE] = "";
+	char buf[20] = "";
 
 	printf("\nEnter the volume level (0 - 100) : ");
 	fgets(buf, sizeof buf, stdin);
 	volume = atoi(buf);
 
-	if (volume < MIN)
+	if (volume < 0)
 	{
-		volume = MIN;
-		return MIN;
+		volume = 0;
+		return MIN_VOLUME;
 	}
 
-	if (volume > MAX_VOLUME)
+	if (volume > 100)
 	{
-		volume = MAX_VOLUME;
-		return VOLUME_SET;
+		volume = 100;
+		return MAX_VOLUME;
 	}
-	return SUCCESS;
+	return 1;
 }
 
 
@@ -461,30 +485,45 @@ int AmFmRadio::SetVolume(int secondVolume)
 {
 	volume = secondVolume;
 
-	if (volume < MIN)
+	if (volume < 0)
 	{
-		volume = MIN;
+		volume = 0;
 	}
-	else if (volume > MAX_VOLUME)
+	else if (volume > 100)
 	{
-		volume = MAX_VOLUME;
+		volume = 100;
 	}
-	return SUCCESS;
+	return 1;
 }
 
 
 /*  -- Mutator Header Comment
-	Name	:	SetCurrentStation
-	Purpose :	To modify the current_station attribute of the class,
+	Name    :   SetCurrentStation
+	Purpose :   To modify the current_station attribute of the class,
 				allowing the user to set the current station frequency
 				of the radio.
-	Inputs	:	station
-	Outputs	:	NONE
-	Returns	:	double
+	Inputs  :   station - The frequency value to be set as the current station.
+	Outputs :   None
+	Returns :   None
 */
 void AmFmRadio::SetCurrentStation(double station)
 {
-	current_station = station;
+	if (strcmp(band, "AM") == 0) 
+	{
+		// Validate station for AM band
+		if (station >= 530 && station <= 1700) 
+		{
+			current_station = station;
+		}	
+	}
+	else 
+	{
+		// Validate station for FM band
+		if (station >= 87.9 && station <= 107.9) 
+		{
+			current_station = station;
+		}		
+	}
 }
 
 
