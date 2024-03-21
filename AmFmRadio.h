@@ -8,15 +8,14 @@
 
 
 //Constants
-//#define STATIONS 5
-//#define BANDS 3
-//#define MAX 4
-//#define SUCCESS 1
+#define STATIONS 5
+#define AM_FM 3
+#define MAX_AM_FREQ 1700
+#define MIN_AM_FREQ 530
+#define MAX_FM_FREQ 107.9
+#define MIN_FM_FREQ 87.9
 #define MIN_VOLUME 0
 #define MAX_VOLUME 2
-//#define BUF_SIZE 20
-//#define VOLUME_SET 2
-//#define FAILURE 0
 
 
 /* -- This is a Strut Comment --
@@ -47,10 +46,10 @@ private:
 
 	/* -------------- CONSTANTS ------------- */
 	/* -------------- ATTRIBUTES ------------ */
-	Freqs	freq[5];
+	Freqs	freq[STATIONS];
 	Freqs frequencies;
 	double	current_station;
-	char	band[3];
+	char	band[AM_FM];
 	int		volume;
 	bool	on;
 	bool displayOutput;
