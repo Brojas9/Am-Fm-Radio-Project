@@ -3,19 +3,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 #pragma warning(disable: 4996) // required by Visual Studio
 
 
 //Constants
-#define STATIONS 5
-#define BANDS 3
-#define MAX 4
-#define MIN 0
-#define SUCCESS 1
-#define MAX_VOLUME 100
-#define BUF_SIZE 20
-#define VOLUME_SET 2
-#define kFailure 0
+//#define STATIONS 5
+//#define BANDS 3
+//#define MAX 4
+//#define SUCCESS 1
+#define MIN_VOLUME 0
+#define MAX_VOLUME 2
+//#define BUF_SIZE 20
+//#define VOLUME_SET 2
+//#define FAILURE 0
 
 
 /* -- This is a Strut Comment --
@@ -46,10 +47,10 @@ private:
 
 	/* -------------- CONSTANTS ------------- */
 	/* -------------- ATTRIBUTES ------------ */
-	Freqs	freq[STATIONS];
+	Freqs	freq[5];
 	Freqs frequencies;
 	double	current_station;
-	char	band[BANDS];
+	char	band[3];
 	int		volume;
 	bool	on;
 	bool displayOutput;
@@ -70,7 +71,7 @@ public:
 
 
 	AmFmRadio(bool isOn = false);										//Constructor
-	AmFmRadio(bool isOn, Freqs presets[5]);								//Constructor
+	AmFmRadio(bool isOn, Freqs presets[]);								//Constructor
 	~AmFmRadio();														//Destructor
 
 
@@ -85,6 +86,7 @@ public:
 
 
 	/* ---------- MUTATOR PROTOTYPES --------- */
+
 	int SetPresetFreq(int freq_num);
 	int SetVolume(void);
 	int SetVolume(int secondVolume);
