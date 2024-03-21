@@ -12,18 +12,18 @@ AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 {
 	for (int i = 0; i < 5; ++i) 
 	{
-		freq[i].AMFreq = 530;
-		freq[i].FMFreq = 87.9;
+		freq[i].AMFreq = MIN_AM_FREQ;
+		freq[i].FMFreq = MIN_FM_FREQ;
 	}
 	// default frequencies
-	frequencies.AMFreq = 530;
-	frequencies.FMFreq = 87.9;
+	frequencies.AMFreq = MIN_AM_FREQ;
+	frequencies.FMFreq = MIN_FM_FREQ;
 
 	if (on)
 	{
 		// default initialization
 		volume = 0;
-		current_station = 530;
+		current_station = MIN_AM_FREQ;
 		strcpy(band, "am");
 	}
 	else
@@ -60,8 +60,8 @@ AmFmRadio::AmFmRadio(bool isOn, Freqs presets[]) : displayOutput(false)
 	}
 
 	//default frequencies
-	frequencies.AMFreq = 530;
-	frequencies.FMFreq = 87.9;
+	frequencies.AMFreq = MIN_AM_FREQ;
+	frequencies.FMFreq = MIN_FM_FREQ;
 
 		
 }
@@ -120,12 +120,12 @@ void AmFmRadio::PowerToggle(void)
 		{
 			frequencies.FMFreq = current_station;
 		}
+
 		// Radio is being turned off
 		int prevVolume = volume;
 		volume = 0;
 		volume = prevVolume;
-		on = false;
-		//current_station = 0;
+		on = false;		
 	}
 }
 
@@ -251,9 +251,9 @@ void AmFmRadio::ScanUp(void)
 {
 	if (strcmp("AM", band) == 0)
 	{
-		if (current_station == 1700)
+		if (current_station == MAX_AM_FREQ)
 		{
-			current_station = 530;
+			current_station = MIN_AM_FREQ;
 		}
 		else
 		{
@@ -263,9 +263,9 @@ void AmFmRadio::ScanUp(void)
 	else
 	{
 		//FM band		
-		if (current_station >= 107.9)
+		if (current_station >= MAX_FM_FREQ)
 		{
-			current_station = 87.9;
+			current_station = MIN_FM_FREQ;
 		}
 		else
 		{
@@ -291,9 +291,9 @@ void AmFmRadio::ScanDown(void)
 	if (strcmp("AM", band) == 0)
 	{
 		//if current_station is 530, the current_station becomes 1700
-		if (current_station == 530)
+		if (current_station == MIN_AM_FREQ)
 		{
-			current_station = 1700;
+			current_station = MAX_AM_FREQ;
 		}
 		else
 		{
@@ -304,9 +304,9 @@ void AmFmRadio::ScanDown(void)
 	{
 		//if the current_station is 107.9, the current_station becomes 87.9
 		//Note: car radios jump .2 for the FM. That's how it's modeled here.
-		if (current_station <= 87.9)
+		if (current_station <= MIN_FM_FREQ)
 		{
-			current_station = 107.9;
+			current_station = MAX_FM_FREQ;
 		}
 		else
 		{
@@ -368,10 +368,10 @@ double AmFmRadio::GetCurrentStation(void)
 */
 char* AmFmRadio::GetBand(void)
 {
-	char* bandCopy = new char[3];
+	char* bandCopy = new char[AM_FM];
 
 	memcpy(bandCopy, band,sizeof(band));
-	bandCopy[3];
+	bandCopy[AM_FM];
 
 	return bandCopy;
 }
@@ -511,7 +511,7 @@ void AmFmRadio::SetCurrentStation(double station)
 	if (strcmp(band, "AM") == 0) 
 	{
 		// Validate station for AM band
-		if (station >= 530 && station <= 1700) 
+		if (station >= MIN_AM_FREQ && station <= MAX_AM_FREQ)
 		{
 			current_station = station;
 		}	
@@ -519,7 +519,7 @@ void AmFmRadio::SetCurrentStation(double station)
 	else 
 	{
 		// Validate station for FM band
-		if (station >= 87.9 && station <= 107.9) 
+		if (station >= MIN_FM_FREQ && station <= MAX_FM_FREQ)
 		{
 			current_station = station;
 		}		
