@@ -1,9 +1,10 @@
-#ifndef AmFmRadio_H
-#define AmFmRadio_H
+#ifndef AMFMRADIO_H
+#define AMFMRADIO_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <conio.h>
 #pragma warning(disable: 4996) // required by Visual Studio
 
 
@@ -25,10 +26,10 @@
 */
 struct Freqs
 {
-	double AMFreq;
+	int AMFreq;
 	double FMFreq;
 };
-/* -- This is a CLASS comment --
+/* -- This is a SUPER-CLASS comment --
 	NAME	:	AmFmRadio
 	PURPOSE :	The AmFmRadio class models an AM/FM radio with
 	preset frequencies, allowing users to toggle power, switch
