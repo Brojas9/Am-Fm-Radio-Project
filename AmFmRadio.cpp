@@ -1,6 +1,4 @@
 #include "AmFmRadio.h"
-
-
 /*  -- Constructor Header Comment
 	Name    :   AmFmRadio-- CONSTRUCTOR
 	Purpose :   Constructor for the AmFmRadio class.
@@ -24,7 +22,7 @@ AmFmRadio::AmFmRadio(bool isOn) : on(isOn), displayOutput(false)
 		// default initialization
 		volume = 0;
 		current_station = MIN_AM_FREQ;
-		strcpy(band, "am");
+		strcpy(band, "AM");
 	}
 	else
 	{	//when radio is turned off
@@ -76,7 +74,10 @@ AmFmRadio::AmFmRadio(bool isOn, Freqs presets[]) : displayOutput(false)
 */
 AmFmRadio::~AmFmRadio()
 {
-	printf("Destroying AmFmRadio\n");
+	if (displayOutput)
+	{
+		printf("\nDestroying AmFmRadio\n");
+	}	
 }
 
 
@@ -196,15 +197,16 @@ void AmFmRadio::ShowCurrentSettings(void)
 
 	if (on)
 	{
-		printf("\n\nRadio is on. \n");
+		printf("\nRadio is on \n");
 	}
 	else
 	{
-		printf("\n\nRadio is off. \n");
+		printf("\nRadio is off \n");
 	}
-		
+
+	
 		printf("\nRadio Band: %s\n", band);
-		
+				
 
 	if (on)
 	{
@@ -227,7 +229,7 @@ void AmFmRadio::ShowCurrentSettings(void)
 	printf("AM Freq Settings:");
 	for (int i = 0; i < 5; ++i)
 	{
-		printf("%2d) %5.f ", i + 1, freq[i].AMFreq);
+		printf("%2d) %5d ", i + 1, freq[i].AMFreq);
 	}
 
 	printf("\nFM Freq Settings:");
@@ -444,7 +446,7 @@ int AmFmRadio::SetPresetFreq(int freq_num)
 
 /*  -- Mutator Header Comment
 	Name	:	SetVolume
-	Purpose :	Set the volume level of the radio..
+	Purpose :	Set the volume level of the radio.
 	Inputs	:	User input
 	Outputs	:	NONE
 	Returns	:	kMinVol if the volume is set to the minimum volume,
@@ -476,7 +478,7 @@ int AmFmRadio::SetVolume(void)
 
 /*  -- Mutator Header Comment
 	Name	:	SetVolume
-	Purpose :	This us the second version of SetVolume.
+	Purpose :	This us the second version of SetVolume (overloaded functions).
 	Inputs	:	secondVolume
 	Outputs	:	NONE
 	Returns	:	int
