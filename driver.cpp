@@ -16,7 +16,7 @@ int main(void)
 	int			freq_num = 0;
 	char		buf[20] = { 0 };
 	bool		on = false;
-	Freqs presetFrequencies[5];
+	Freqs presetFrequencies[STATIONS];
 
 
 	//Instantiate with default parameters.
